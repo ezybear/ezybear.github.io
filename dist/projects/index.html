@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Projects — Ezybear</title><meta name="description" content="A collection of selected personal projects and case studies."><meta name="author" content="Ezybear"><meta name="theme-color" content="#f8f7f4"><link rel="canonical" href="https://ezybear.github.io/projects/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta property="og:title" content="Projects — Ezybear"><meta property="og:description" content="A collection of selected personal projects and case studies."><meta property="og:site_name" content="Ezybear"><meta property="og:type" content="website"><meta property="og:url" content="https://ezybear.github.io/projects/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Projects — Ezybear"><meta name="twitter:description" content="A collection of selected personal projects and case studies."><link rel="stylesheet" href="/_astro/BaseLayout.DSKSAUG1.css"><style>.catalog-chip[data-astro-cid-6kjp6l6a]{border-radius:9999px;padding:.375rem 1rem;font-size:.75rem;font-weight:500;line-height:1rem;color:var(--color-ink);box-shadow:inset 0 0 0 1px var(--color-line);transition:background-color .18s ease,color .18s ease,box-shadow .18s ease}.catalog-chip[data-astro-cid-6kjp6l6a]:hover{background-color:var(--color-paper)}.catalog-chip[data-astro-cid-6kjp6l6a].is-active{background-color:var(--color-ink);color:var(--color-base);box-shadow:inset 0 0 0 1px var(--color-ink)}
+</style></head> <body class="bg-base text-ink"> <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--color-base)]">
+Skip to content
+</a> <nav class="sticky top-0 z-50 border-b border-line bg-base/80 backdrop-blur-md" aria-label="Main navigation"> <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6"> <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Ezybear home">
+Ezybear
+</a> <div class="hidden items-center gap-8 text-sm md:flex"> <a href="/" class="transition-colors hover:text-accent text-faded"> Home </a><a href="/projects" class="transition-colors hover:text-accent text-ink" aria-current="page"> Projects </a><a href="/about" class="transition-colors hover:text-accent text-faded"> About </a> </div> <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:text-accent md:hidden" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" data-mobile-menu-open> <span class="sr-only">Open menu</span> <span class="flex w-4 flex-col gap-1.5" aria-hidden="true"> <span class="h-px w-full bg-current"></span> <span class="h-px w-full bg-current"></span> <span class="h-px w-full bg-current"></span> </span> </button> </div> </nav> <div id="mobile-menu" class="fixed inset-0 z-[60] hidden h-dvh overflow-hidden bg-base text-ink md:hidden" role="dialog" aria-modal="true" aria-label="Mobile menu" data-mobile-menu> <div class="flex h-full flex-col px-6 pb-6 pt-5"> <div class="flex h-11 items-center justify-between"> <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Ezybear home" data-mobile-menu-link>Ezybear</a> <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:text-accent" aria-label="Close menu" data-mobile-menu-close>✕</button> </div> <div class="flex min-h-0 flex-1 flex-col gap-5 pt-7"> <div class="space-y-2.5"> <a href="/" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-faded" data-mobile-menu-link> Home </a><a href="/projects" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-ink" aria-current="page" data-mobile-menu-link> Projects </a><a href="/about" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-faded" data-mobile-menu-link> About </a> </div> <div class="mt-auto space-y-2 text-sm"> <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Contact</p> <a href="mailto:hello@ezybear.com" class="block transition-colors hover:text-accent" data-mobile-menu-link>hello@ezybear.com</a> </div> </div> </div> </div> <script>
+  (() => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    const openButton = document.querySelector("[data-mobile-menu-open]");
+    const closeButton = document.querySelector("[data-mobile-menu-close]");
+
+    if (!menu || !openButton || !closeButton) return;
+
+    const focusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(",");
+    let lastFocusedElement;
+
+    function getFocusable() {
+      return Array.from(menu.querySelectorAll(focusableSelector)).filter((element) => {
+        return element instanceof HTMLElement && element.offsetParent !== null;
+      });
+    }
+
+    function lockScroll() {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
+    function unlockScroll() {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      lastFocusedElement = document.activeElement;
+      menu.classList.remove("hidden");
+      openButton.setAttribute("aria-expanded", "true");
+      lockScroll();
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function closeMenu({ restoreFocus = true } = {}) {
+      menu.classList.add("hidden");
+      openButton.setAttribute("aria-expanded", "false");
+      unlockScroll();
+
+      if (restoreFocus && lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus({ preventScroll: true });
+      }
+    }
+
+    openButton.addEventListener("click", openMenu);
+    closeButton.addEventListener("click", () => closeMenu());
+
+    menu.querySelectorAll("[data-mobile-menu-link]").forEach((link) => {
+      link.addEventListener("click", () => closeMenu({ restoreFocus: false }));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (menu.classList.contains("hidden")) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 768px)").matches && !menu.classList.contains("hidden")) {
+        closeMenu({ restoreFocus: false });
+      }
+    });
+  })();
+</script> <div>  <main id="main-content" data-astro-cid-6kjp6l6a> <section class="mx-auto max-w-screen-xl px-6 pb-12 pt-20 md:pb-16 md:pt-28" data-astro-cid-6kjp6l6a> <p class="mb-6 flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-faded" data-astro-cid-6kjp6l6a> <span class="inline-block h-px w-8 bg-ink/40" data-astro-cid-6kjp6l6a></span>
+Selected work
+</p> <h1 class="max-w-[18ch] text-balance font-serif text-5xl leading-[0.95] md:text-6xl" data-astro-cid-6kjp6l6a>
+Projects that blend <span class="italic text-accent" data-astro-cid-6kjp6l6a>clarity and craft.</span> </h1> <p class="mt-6 max-w-[52ch] leading-relaxed text-faded" data-astro-cid-6kjp6l6a>A curated set of personal projects that reflect my learning, creativity, and growing web development journey.</p> </section> <div class="mx-auto max-w-screen-xl px-6 pb-32" data-astro-cid-6kjp6l6a> <section class="border-t border-line pb-12 pt-8" aria-label="Project filters" data-astro-cid-6kjp6l6a> <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-astro-cid-6kjp6l6a> <div class="space-y-4" data-astro-cid-6kjp6l6a> <h2 class="text-xs uppercase tracking-[0.25em] text-faded" data-astro-cid-6kjp6l6a><span data-astro-cid-6kjp6l6a>1</span> case studies</h2> <div class="flex flex-wrap items-center gap-2" data-filter-group="type" data-astro-cid-6kjp6l6a> <button class="catalog-chip is-active" type="button" data-filter-value="all" aria-pressed="true" data-astro-cid-6kjp6l6a>All work</button> <button class="catalog-chip" type="button" data-filter-value="Python Project" aria-pressed="false" data-astro-cid-6kjp6l6a>Python Project</button> </div> <div class="flex flex-wrap items-center gap-2" data-filter-group="stack" data-astro-cid-6kjp6l6a> <button class="catalog-chip is-active" type="button" data-filter-value="all" aria-pressed="true" data-astro-cid-6kjp6l6a>All stacks</button> <button class="catalog-chip" type="button" data-filter-value="Python, Minecraft" aria-pressed="false" data-astro-cid-6kjp6l6a>Python, Minecraft</button> </div> </div> </div> </section> <p class="hidden py-32 text-center font-serif text-2xl text-faded" data-catalog-empty data-astro-cid-6kjp6l6a>No projects match that combination.</p> <div class="grid grid-cols-1 gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3" data-catalog-grid data-astro-cid-6kjp6l6a> <article data-catalog-item data-type="Python Project" data-stack="Python, Minecraft" data-index="0" data-astro-cid-6kjp6l6a> <a href="/projects/minecraft-house-python" class="group block space-y-4" data-project-card> <div class="aspect-[4/5] overflow-hidden rounded-[min(1vw,12px)] bg-paper"> <img src="/_astro/minecraft-house-preview.B0uJ5jVN_2b9TYi.webp" alt="Building a House in Minecraft with Python — I learned Minecraft Python over vacation and used it to generate a house in-game with code." loading="eager" decoding="sync" width="1024" height="1280" class="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"> </div> <div class="flex items-start justify-between gap-4"> <div> <h2 class="text-sm font-medium">Building a House in Minecraft with Python</h2> <p class="text-xs text-faded">I learned Minecraft Python over vacation and used it to generate a house in-game with code.</p> </div> <span class="text-sm uppercase tracking-[0.2em] text-faded">2025</span> </div> </a> </article> </div> </div>  <script>
+      const grid = document.querySelector("[data-catalog-grid]");
+      const items = Array.from(document.querySelectorAll("[data-catalog-item]"));
+      const empty = document.querySelector("[data-catalog-empty]");
+      const filters = { type: "all", stack: "all" };
+
+      function applyFilters() {
+        const visible = items.filter((item) => (filters.type === "all" || item.dataset.type === filters.type) && (filters.stack === "all" || item.dataset.stack === filters.stack));
+        items.forEach((item) => (item.hidden = true));
+        visible.forEach((item) => { item.hidden = false; grid.appendChild(item); });
+        empty.classList.toggle("hidden", visible.length > 0);
+        grid.classList.toggle("hidden", visible.length === 0);
+      }
+
+      document.querySelectorAll("[data-filter-group]").forEach((group) => {
+        group.addEventListener("click", (event) => {
+          const button = event.target.closest("button[data-filter-value]");
+          if (!button) return;
+          const key = group.dataset.filterGroup;
+          filters[key] = button.dataset.filterValue;
+          group.querySelectorAll("button").forEach((chip) => {
+            chip.classList.remove("is-active");
+            chip.setAttribute("aria-pressed", "false");
+          });
+          button.classList.add("is-active");
+          button.setAttribute("aria-pressed", "true");
+          applyFilters();
+        });
+      });
+    </script> </main>  </div> <footer id="contact" class="mt-32 border-t border-line py-24"> <div class="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 px-6 md:grid-cols-3"> <div class="space-y-4"> <div class="font-serif text-lg italic tracking-tight">Ezybear</div> <p class="max-w-[30ch] text-sm leading-relaxed text-faded">Student developer sharing projects, ideas, and thoughtful web experiences.</p> </div> <div class="space-y-4"> <h2 class="text-xs font-medium uppercase tracking-widest">Explore</h2> <ul class="space-y-2 text-sm"> <li><a href="/projects" class="text-faded transition-colors hover:text-ink">Projects</a></li> <li><a href="/about" class="text-faded transition-colors hover:text-ink">About</a></li> </ul> </div> <div class="space-y-4"> <h2 class="text-xs font-medium uppercase tracking-widest">Connect</h2> <ul class="space-y-2 text-sm"> <li><a href="https://github.com/ezybear" target="_blank" rel="noopener noreferrer" class="text-faded transition-colors hover:text-ink">GitHub</a></li> </ul> </div> </div> <div class="mx-auto mt-16 max-w-screen-xl px-6 text-[10px] uppercase tracking-[0.2em] text-faded">
+© 2026 Ezybear — Built with Astro.
+</div> </footer> </body></html>

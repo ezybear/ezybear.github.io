@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ezybear.github.io/sitemap-index.xml

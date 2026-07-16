@@ -1,17 +1,18 @@
 ---
-name: Halla Shelf
-collection: Collection 03 — Storage
-category: Storage
-material: Oak
-price: 460
-shortDescription: Floating Oak Shelf
-dimensions: L 90 × D 22 × H 4 cm
-finish: Matte Hard-Wax Oil
-leadTime: 3–4 Weeks
+title: Design System for a Fintech Dashboard
+client: Northstar Labs
+type: Design System
+stack: React, TypeScript, Storybook
+year: 2023
+summary: A scalable component language for analytics, onboarding, and admin workflows.
+description: I helped shape a modular design system with reusable components, accessible states, and clear documentation for product teams shipping across multiple surfaces.
+link: https://example.com
+repo: https://github.com/ezybear/fintech-design-system
 images:
   - ../../assets/p-halla-1.jpg
   - ../../assets/p-halla-2.jpg
 order: 5
+featured: false
 ---
 
-A patient shelf. Mounted with concealed brackets that vanish into the wall, the Halla Shelf carries books, ceramics, and afternoon light in equal measure.
+This work revolved around creating a reliable visual language that could support fast-moving product iteration without sacrificing consistency or usability.

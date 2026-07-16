@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { formatPrice, getProducts, productForJson } from "@/data/products.js";
+import { formatPrice, getProjects, productForJson } from "@/data/products.js";
 
-const products = await getProducts();
+const products = await getProjects();
 const cartProducts = products.map(productForJson);
 ---
 
@@ -175,19 +175,19 @@ const cartProducts = products.map(productForJson);
       products.map((product) => (
         <template data-product-template={product.slug}>
           <li class="flex gap-6 py-8" data-cart-row={product.slug}>
-            <a href={`/products/${product.slug}`} class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32">
-              <Image src={product.images[0]} alt={product.name} width={320} height={320} format="webp" loading="eager" class="h-full w-full object-cover" />
+            <a href={`/projects/${product.slug}`} class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32">
+              <Image src={product.images[0]} alt={`${product.title} preview`} width={320} height={320} format="webp" loading="eager" class="h-full w-full object-cover" />
             </a>
             <div class="flex min-w-0 flex-1 flex-col justify-between">
               <div class="flex justify-between gap-4">
                 <div class="min-w-0 space-y-1">
-                  <a href={`/products/${product.slug}`} class="block font-serif text-2xl transition-colors hover:text-accent">
-                    {product.name}
+                  <a href={`/projects/${product.slug}`} class="block font-serif text-2xl transition-colors hover:text-accent">
+                    {product.title}
                   </a>
-                  <p class="text-xs text-faded">{product.material} · {product.finish}</p>
-                  <p class="text-[11px] uppercase tracking-widest text-faded">Lead time {product.leadTime}</p>
+                  <p class="text-xs text-faded">{product.client} · {product.type}</p>
+                  <p class="text-[11px] uppercase tracking-widest text-faded">{product.stack}</p>
                 </div>
-                <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>{formatPrice(product.price)}</span>
+                <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>{formatPrice(product.year)}</span>
               </div>
               <div class="flex items-center justify-between pt-4">
                 <div class="inline-flex items-center overflow-hidden rounded-full border border-line">
@@ -195,7 +195,7 @@ const cartProducts = products.map(productForJson);
                     type="button"
                     class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper"
                     data-cart-action="decrease"
-                    aria-label={`Decrease ${product.name} quantity`}
+                    aria-label={`Decrease ${product.title} quantity`}
                   >
                     −
                   </button>
@@ -204,7 +204,7 @@ const cartProducts = products.map(productForJson);
                     type="button"
                     class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper"
                     data-cart-action="increase"
-                    aria-label={`Increase ${product.name} quantity`}
+                    aria-label={`Increase ${product.title} quantity`}
                   >
                     +
                   </button>
@@ -213,7 +213,7 @@ const cartProducts = products.map(productForJson);
                   type="button"
                   class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink"
                   data-cart-action="remove"
-                  aria-label={`Remove ${product.name} from cart`}
+                  aria-label={`Remove ${product.title} from cart`}
                 >
                   Remove
                 </button>
@@ -276,7 +276,7 @@ const cartProducts = products.map(productForJson);
 
     function render() {
       const rows = knownRows();
-      const subtotal = rows.reduce((total, row) => total + row.product.price * row.item.quantity, 0);
+      const subtotal = rows.reduce((total, row) => total + row.product.year * row.item.quantity, 0);
       const shipping = rows.length > 0 ? 120 : 0;
       const total = subtotal + shipping;
 
@@ -301,7 +301,7 @@ const cartProducts = products.map(productForJson);
         const template = document.querySelector(`template[data-product-template="${item.slug}"]`);
         const row = template.content.firstElementChild.cloneNode(true);
         row.querySelector("[data-row-quantity]").textContent = String(item.quantity);
-        row.querySelector("[data-row-line-price]").textContent = formatPrice(product.price * item.quantity);
+        row.querySelector("[data-row-line-price]").textContent = formatPrice(product.year * item.quantity);
         row.querySelector('[data-cart-action="decrease"]').addEventListener("click", () => window.AtelierCart.setQuantity(item.slug, item.quantity - 1));
         row.querySelector('[data-cart-action="increase"]').addEventListener("click", () => window.AtelierCart.setQuantity(item.slug, item.quantity + 1));
         row.querySelector('[data-cart-action="remove"]').addEventListener("click", () => window.AtelierCart.remove(item.slug));

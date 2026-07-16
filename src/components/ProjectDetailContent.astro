@@ -1,0 +1,168 @@
+---
+import { Image } from "astro:assets";
+import ProductCard from "@/components/ProductCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const { project, related } = Astro.props;
+const projectUrl = new URL(`/projects/${project.slug}`, Astro.site ?? Astro.url.origin).href;
+const relatedProjects = related.filter((item) => item.featured && item.slug !== project.slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${project.title} — Ezybear`}
+  description={project.description.slice(0, 155)}
+  image={project.images[0]}
+>
+  <main id="main-content">
+    <div class="mx-auto max-w-screen-xl px-6 pt-8">
+      <nav class="flex gap-2 text-xs uppercase tracking-widest text-faded" aria-label="Breadcrumb">
+        <a href="/projects" class="hover:text-ink">Projects</a>
+        <span aria-hidden="true">/</span>
+        <span class="text-ink" aria-current="page">{project.title}</span>
+      </nav>
+    </div>
+
+    <div class="mx-auto max-w-screen-xl px-6 py-12">
+      <section class="grid grid-cols-1 items-start gap-16 lg:grid-cols-12">
+        <div class="space-y-6 lg:col-span-7" data-product-gallery>
+          <div class="relative aspect-[4/5] overflow-hidden rounded-[min(1vw,12px)] bg-paper">
+            {
+              project.images.map((image, index) => (
+                <div class:list={["absolute inset-0", index !== 0 && "hidden"]} data-gallery-panel={index}>
+                  <Image
+                    src={image}
+                    alt={`${project.title} — view ${index + 1}`}
+                    width={1440}
+                    height={1800}
+                    format="webp"
+                    loading={index === 0 ? "eager" : "lazy"}
+                    class="atelier-fade-in h-full w-full object-cover"
+                  />
+                </div>
+              ))
+            }
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            {
+              project.images.map((image, index) => (
+                <button
+                  type="button"
+                  class:list={[
+                    "aspect-square overflow-hidden rounded-[min(1vw,12px)] bg-paper ring-1 transition-all",
+                    index === 0 ? "ring-ink" : "ring-line hover:ring-ink/40",
+                  ]}
+                  data-gallery-thumb={index}
+                  aria-label={`Show view ${index + 1}`}
+                  aria-pressed={index === 0 ? "true" : "false"}
+                >
+                  <Image src={image} alt="" width={360} height={360} format="webp" loading="lazy" class="h-full w-full object-cover" />
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="space-y-12 lg:sticky lg:top-24 lg:col-span-5">
+          <div class="space-y-4">
+            <div class="text-xs uppercase tracking-widest text-faded">{project.client}</div>
+            <h1 class="text-balance font-serif text-4xl leading-tight md:text-5xl">{project.title}</h1>
+            <p class="font-serif text-2xl">{project.year}</p>
+          </div>
+
+          <div class="space-y-6">
+            <p class="max-w-[44ch] text-pretty leading-relaxed text-faded">{project.description}</p>
+            <dl class="space-y-3">
+              <div class="flex justify-between border-b border-line py-2 text-sm">
+                <dt class="text-faded">Type</dt>
+                <dd>{project.type}</dd>
+              </div>
+              <div class="flex justify-between border-b border-line py-2 text-sm">
+                <dt class="text-faded">Stack</dt>
+                <dd>{project.stack}</dd>
+              </div>
+              <div class="flex justify-between border-b border-line py-2 text-sm">
+                <dt class="text-faded">Summary</dt>
+                <dd>{project.summary}</dd>
+              </div>
+              {project.link && (
+                <div class="flex justify-between border-b border-line py-2 text-sm">
+                  <dt class="text-faded">Live</dt>
+                  <dd><a href={project.link} target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-accent">Visit site</a></dd>
+                </div>
+              )}
+            </dl>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            {project.link && (
+              <a href={project.link} target="_blank" rel="noopener noreferrer" class="w-full rounded-full bg-ink py-4 text-center text-sm font-medium text-[var(--color-base)] transition-colors hover:bg-accent">
+                View live project
+              </a>
+            )}
+            {project.repo && (
+              <a href={project.repo} target="_blank" rel="noopener noreferrer" class="w-full rounded-full border border-line py-4 text-center text-sm font-medium text-ink transition-colors hover:bg-paper">
+                View repository
+              </a>
+            )}
+          </div>
+
+          <p class="text-[11px] uppercase tracking-widest text-faded">
+            Built for clarity, accessibility, and thoughtful product craft.
+          </p>
+        </div>
+      </section>
+
+      <section class="mt-40 space-y-8 border-t border-line pt-16">
+        <div class="flex items-end justify-between gap-6">
+          <h2 class="font-serif text-3xl md:text-4xl">More selected work</h2>
+          <a href="/projects" class="text-xs uppercase tracking-widest underline underline-offset-4 hover:text-accent">
+            View all
+          </a>
+        </div>
+        {relatedProjects.length > 0 ? (
+          <div class="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3">
+            {relatedProjects.map((item) => <ProductCard project={item} />)}
+          </div>
+        ) : (
+          <div class="rounded-[min(1vw,12px)] border border-line bg-paper/60 p-8 text-sm leading-relaxed text-faded">
+            More projects are coming soon. I’m adding new case studies as I keep building and learning.
+          </div>
+        )}
+      </section>
+    </div>
+
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.title,
+      description: project.description,
+      image: project.images.map((image) => new URL(image.src, Astro.url.origin).href),
+      author: {
+        "@type": "Person",
+        name: "Ezybear",
+      },
+      url: projectUrl,
+    })}></script>
+
+    <script is:inline>
+      const gallery = document.querySelector("[data-product-gallery]");
+      if (gallery) {
+        const panels = Array.from(gallery.querySelectorAll("[data-gallery-panel]"));
+        const thumbs = Array.from(gallery.querySelectorAll("[data-gallery-thumb]"));
+
+        thumbs.forEach((thumb) => {
+          thumb.addEventListener("click", () => {
+            const active = thumb.dataset.galleryThumb;
+            panels.forEach((panel) => panel.classList.toggle("hidden", panel.dataset.galleryPanel !== active));
+            thumbs.forEach((button) => {
+              const selected = button.dataset.galleryThumb === active;
+              button.classList.toggle("ring-ink", selected);
+              button.classList.toggle("ring-line", !selected);
+              button.setAttribute("aria-pressed", selected ? "true" : "false");
+            });
+          });
+        });
+      }
+    </script>
+  </main>
+</BaseLayout>

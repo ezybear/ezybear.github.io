@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Your archive — Atelier Kō</title><meta name="description" content="Review the pieces you've selected from the Atelier Kō catalogue."><meta name="author" content="Ezybear"><meta name="theme-color" content="#f8f7f4"><link rel="canonical" href="https://ezybear.github.io/cart/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="robots" content="noindex,nofollow"><meta property="og:title" content="Your archive — Atelier Kō"><meta property="og:description" content="Review the pieces you've selected from the Atelier Kō catalogue."><meta property="og:site_name" content="Ezybear"><meta property="og:type" content="website"><meta property="og:url" content="https://ezybear.github.io/cart/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Your archive — Atelier Kō"><meta name="twitter:description" content="Review the pieces you've selected from the Atelier Kō catalogue."><link rel="stylesheet" href="/_astro/BaseLayout.DSKSAUG1.css"></head> <body class="bg-base text-ink"> <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--color-base)]">
+Skip to content
+</a> <nav class="sticky top-0 z-50 border-b border-line bg-base/80 backdrop-blur-md" aria-label="Main navigation"> <div class="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-6"> <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Ezybear home">
+Ezybear
+</a> <div class="hidden items-center gap-8 text-sm md:flex"> <a href="/" class="transition-colors hover:text-accent text-faded"> Home </a><a href="/projects" class="transition-colors hover:text-accent text-faded"> Projects </a><a href="/about" class="transition-colors hover:text-accent text-faded"> About </a> </div> <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:text-accent md:hidden" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" data-mobile-menu-open> <span class="sr-only">Open menu</span> <span class="flex w-4 flex-col gap-1.5" aria-hidden="true"> <span class="h-px w-full bg-current"></span> <span class="h-px w-full bg-current"></span> <span class="h-px w-full bg-current"></span> </span> </button> </div> </nav> <div id="mobile-menu" class="fixed inset-0 z-[60] hidden h-dvh overflow-hidden bg-base text-ink md:hidden" role="dialog" aria-modal="true" aria-label="Mobile menu" data-mobile-menu> <div class="flex h-full flex-col px-6 pb-6 pt-5"> <div class="flex h-11 items-center justify-between"> <a href="/" class="font-serif text-xl italic tracking-tight" aria-label="Ezybear home" data-mobile-menu-link>Ezybear</a> <button type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:text-accent" aria-label="Close menu" data-mobile-menu-close>✕</button> </div> <div class="flex min-h-0 flex-1 flex-col gap-5 pt-7"> <div class="space-y-2.5"> <a href="/" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-faded" data-mobile-menu-link> Home </a><a href="/projects" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-faded" data-mobile-menu-link> Projects </a><a href="/about" class="block font-serif text-4xl leading-none transition-colors hover:text-accent text-faded" data-mobile-menu-link> About </a> </div> <div class="mt-auto space-y-2 text-sm"> <p class="text-[10px] uppercase tracking-[0.3em] text-faded">Contact</p> <a href="mailto:hello@ezybear.com" class="block transition-colors hover:text-accent" data-mobile-menu-link>hello@ezybear.com</a> </div> </div> </div> </div> <script>
+  (() => {
+    const menu = document.querySelector("[data-mobile-menu]");
+    const openButton = document.querySelector("[data-mobile-menu-open]");
+    const closeButton = document.querySelector("[data-mobile-menu-close]");
+
+    if (!menu || !openButton || !closeButton) return;
+
+    const focusableSelector = [
+      "a[href]",
+      "button:not([disabled])",
+      "input:not([disabled])",
+      "select:not([disabled])",
+      "textarea:not([disabled])",
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(",");
+    let lastFocusedElement;
+
+    function getFocusable() {
+      return Array.from(menu.querySelectorAll(focusableSelector)).filter((element) => {
+        return element instanceof HTMLElement && element.offsetParent !== null;
+      });
+    }
+
+    function lockScroll() {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    }
+
+    function unlockScroll() {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      lastFocusedElement = document.activeElement;
+      menu.classList.remove("hidden");
+      openButton.setAttribute("aria-expanded", "true");
+      lockScroll();
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function closeMenu({ restoreFocus = true } = {}) {
+      menu.classList.add("hidden");
+      openButton.setAttribute("aria-expanded", "false");
+      unlockScroll();
+
+      if (restoreFocus && lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus({ preventScroll: true });
+      }
+    }
+
+    openButton.addEventListener("click", openMenu);
+    closeButton.addEventListener("click", () => closeMenu());
+
+    menu.querySelectorAll("[data-mobile-menu-link]").forEach((link) => {
+      link.addEventListener("click", () => closeMenu({ restoreFocus: false }));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (menu.classList.contains("hidden")) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusable = getFocusable();
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.matchMedia("(min-width: 768px)").matches && !menu.classList.contains("hidden")) {
+        closeMenu({ restoreFocus: false });
+      }
+    });
+  })();
+</script> <div>  <main id="main-content" class="mx-auto max-w-screen-xl px-6 py-12"> <header class="mb-12 flex items-end justify-between border-b border-line pb-8"> <div class="space-y-3"> <p class="text-xs uppercase tracking-[0.25em] text-faded">Your archive</p> <h1 class="font-serif text-5xl leading-none md:text-6xl" data-cart-title>Empty for now.</h1> </div> <div class="hidden gap-8 text-[11px] uppercase tracking-[0.2em] md:flex"> <span data-cart-step="cart" class="text-ink">01 · Selection</span> <span data-cart-step="details" class="text-faded">02 · Details</span> <span class="text-faded">03 · Confirmation</span> </div> </header> <div class="py-32 text-center" data-cart-empty> <div class="space-y-6"> <p class="mx-auto max-w-md text-faded">
+You haven't added any pieces yet. The catalogue is small, slow, and waiting.
+</p> <a href="/catalog" class="inline-block rounded-full bg-ink px-6 py-3 text-xs uppercase tracking-widest text-[var(--color-base)] transition-colors hover:bg-accent">
+Browse the catalogue
+</a> </div> </div> <div class="hidden grid grid-cols-1 items-start gap-16 lg:grid-cols-12" data-cart-filled> <section class="space-y-2 lg:col-span-7" aria-live="polite"> <ul class="divide-y divide-line border-y border-line" data-cart-list></ul> <form id="checkout-form" class="hidden space-y-10" data-checkout-form> <fieldset class="space-y-4"> <legend class="mb-2 text-xs uppercase tracking-[0.25em] text-faded">Contact</legend> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Email</span> <input type="email" required placeholder="you@example.com" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> </fieldset> <fieldset class="space-y-4"> <legend class="mb-2 text-xs uppercase tracking-[0.25em] text-faded">Delivery</legend> <div class="grid grid-cols-2 gap-4"> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">First name</span> <input required placeholder="Astrid" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Last name</span> <input required placeholder="Lindgren" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> </div> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Address</span> <input required placeholder="Storgatan 12" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> <div class="grid grid-cols-2 gap-4"> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">City</span> <input required placeholder="Växjö" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Postcode</span> <input required placeholder="352 31" class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> </div> </fieldset> <fieldset class="space-y-4"> <legend class="mb-2 text-xs uppercase tracking-[0.25em] text-faded">Payment</legend> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Card number</span> <input required inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" maxlength="19" data-card-number class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> <div class="grid grid-cols-2 gap-4"> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">Expiry</span> <input required inputmode="numeric" autocomplete="cc-exp" placeholder="08 / 28" maxlength="7" data-card-expiry class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> <label class="block"> <span class="text-[11px] uppercase tracking-widest text-faded">CVC</span> <input required inputmode="numeric" autocomplete="cc-csc" placeholder="123" maxlength="3" data-card-cvc class="mt-1 w-full border-b border-line bg-transparent py-2 text-sm transition-colors focus:border-ink focus:outline-none"> </label> </div> </fieldset> </form> </section> <aside class="space-y-8 rounded-[min(1vw,12px)] bg-paper p-8 lg:sticky lg:top-24 lg:col-span-5"> <h2 class="text-xs uppercase tracking-[0.25em] text-faded">Order summary</h2> <div class="space-y-3"> <div class="flex justify-between text-sm"> <span class="text-faded">Subtotal</span> <span class="tabular-nums" data-cart-subtotal>$0</span> </div> <div class="flex justify-between text-sm"> <span class="text-faded">White-glove delivery</span> <span class="tabular-nums" data-cart-shipping>$0</span> </div> <div class="flex items-baseline justify-between border-t border-line pt-3"> <span class="text-sm">Total</span> <span class="font-serif text-3xl tabular-nums" data-cart-total>$0</span> </div> </div> <div class="space-y-3"> <button type="button" class="w-full rounded-full bg-ink py-4 text-sm font-medium text-[var(--color-base)] transition-colors hover:bg-accent" data-cart-primary>
+Continue to details
+</button> <button type="button" class="hidden w-full text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 transition-colors hover:text-ink" data-cart-back>
+Back to selection
+</button> </div> <p class="border-t border-line pt-6 text-[11px] leading-relaxed text-faded">
+Each piece is signed and dated. Pieces are wrapped in unbleached cotton and shipped in reusable wooden crates. Returned crates earn a small credit toward your next order.
+</p> </aside> </div> <template data-product-template="minecraft-house-python"> <li class="flex gap-6 py-8" data-cart-row="minecraft-house-python"> <a href="/projects/minecraft-house-python" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/minecraft-house-preview.B0uJ5jVN_Z12e0yE.webp" alt="Building a House in Minecraft with Python preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/minecraft-house-python" class="block font-serif text-2xl transition-colors hover:text-accent"> Building a House in Minecraft with Python </a> <p class="text-xs text-faded">Personal · Python Project</p> <p class="text-[11px] uppercase tracking-widest text-faded">Python, Minecraft</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,025</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Building a House in Minecraft with Python quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Building a House in Minecraft with Python quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Building a House in Minecraft with Python from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="oken-stool"> <li class="flex gap-6 py-8" data-cart-row="oken-stool"> <a href="/projects/oken-stool" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-oken-1.B6o-BlcA_20WNEu.webp" alt="Portfolio Site in Astro preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/oken-stool" class="block font-serif text-2xl transition-colors hover:text-accent"> Portfolio Site in Astro </a> <p class="text-xs text-faded">Personal · Portfolio</p> <p class="text-[11px] uppercase tracking-widest text-faded">Astro, TypeScript, Tailwind</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,025</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Portfolio Site in Astro quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Portfolio Site in Astro quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Portfolio Site in Astro from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="arvid-chair"> <li class="flex gap-6 py-8" data-cart-row="arvid-chair"> <a href="/projects/arvid-chair" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-arvid-1.9la9aM0U_v0kNY.webp" alt="Editorial UI for a Product Launch preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/arvid-chair" class="block font-serif text-2xl transition-colors hover:text-accent"> Editorial UI for a Product Launch </a> <p class="text-xs text-faded">Northstar Studio · Landing Experience</p> <p class="text-[11px] uppercase tracking-widest text-faded">Astro, TypeScript, Tailwind</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,024</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Editorial UI for a Product Launch quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Editorial UI for a Product Launch quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Editorial UI for a Product Launch from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="low-plinth-table"> <li class="flex gap-6 py-8" data-cart-row="low-plinth-table"> <a href="/projects/low-plinth-table" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-plinth-1.n3qgCCmL_cG0Xu.webp" alt="SaaS Marketing Experience preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/low-plinth-table" class="block font-serif text-2xl transition-colors hover:text-accent"> SaaS Marketing Experience </a> <p class="text-xs text-faded">Brightside · Marketing Site</p> <p class="text-[11px] uppercase tracking-widest text-faded">Astro, Tailwind, GSAP</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,022</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease SaaS Marketing Experience quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase SaaS Marketing Experience quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove SaaS Marketing Experience from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="monolith-bench"> <li class="flex gap-6 py-8" data-cart-row="monolith-bench"> <a href="/projects/monolith-bench" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-monolith-1.DKv_fRzK_ZWwrco.webp" alt="Internal Tooling for a Creative Team preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/monolith-bench" class="block font-serif text-2xl transition-colors hover:text-accent"> Internal Tooling for a Creative Team </a> <p class="text-xs text-faded">Studio North · Product Tool</p> <p class="text-[11px] uppercase tracking-widest text-faded">Vue, TypeScript, Supabase</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,024</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Internal Tooling for a Creative Team quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Internal Tooling for a Creative Team quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Internal Tooling for a Creative Team from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="halla-shelf"> <li class="flex gap-6 py-8" data-cart-row="halla-shelf"> <a href="/projects/halla-shelf" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-halla-1.jzRdYSz3_ZxMORv.webp" alt="Design System for a Fintech Dashboard preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/halla-shelf" class="block font-serif text-2xl transition-colors hover:text-accent"> Design System for a Fintech Dashboard </a> <p class="text-xs text-faded">Northstar Labs · Design System</p> <p class="text-[11px] uppercase tracking-widest text-faded">React, TypeScript, Storybook</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,023</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Design System for a Fintech Dashboard quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Design System for a Fintech Dashboard quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Design System for a Fintech Dashboard from cart">
+Remove
+</button> </div> </div> </li> </template><template data-product-template="tora-desk"> <li class="flex gap-6 py-8" data-cart-row="tora-desk"> <a href="/projects/tora-desk" class="block size-28 shrink-0 overflow-hidden rounded-[min(1vw,12px)] bg-paper md:size-32"> <img src="/_astro/p-tora-1.BtjGgI1X_ZK52Wf.webp" alt="Product Storytelling for a Climate Brand preview" loading="eager" decoding="async" width="320" height="320" class="h-full w-full object-cover"> </a> <div class="flex min-w-0 flex-1 flex-col justify-between"> <div class="flex justify-between gap-4"> <div class="min-w-0 space-y-1"> <a href="/projects/tora-desk" class="block font-serif text-2xl transition-colors hover:text-accent"> Product Storytelling for a Climate Brand </a> <p class="text-xs text-faded">Verdant · Editorial Experience</p> <p class="text-[11px] uppercase tracking-widest text-faded">Astro, Markdown, SEO</p> </div> <span class="whitespace-nowrap text-sm tabular-nums" data-row-line-price>$2,023</span> </div> <div class="flex items-center justify-between pt-4"> <div class="inline-flex items-center overflow-hidden rounded-full border border-line"> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="decrease" aria-label="Decrease Product Storytelling for a Climate Brand quantity">
+−
+</button> <span class="w-8 text-center text-sm tabular-nums" data-row-quantity>1</span> <button type="button" class="grid size-8 place-items-center text-sm transition-colors hover:bg-paper" data-cart-action="increase" aria-label="Increase Product Storytelling for a Climate Brand quantity">
++
+</button> </div> <button type="button" class="text-[11px] uppercase tracking-widest text-faded underline underline-offset-4 hover:text-ink" data-cart-action="remove" aria-label="Remove Product Storytelling for a Climate Brand from cart">
+Remove
+</button> </div> </div> </li> </template> </main> <script type="application/json" id="cart-products">[{"slug":"minecraft-house-python","title":"Building a House in Minecraft with Python","client":"Personal","type":"Python Project","stack":"Python, Minecraft","year":2025,"summary":"I learned Minecraft Python over vacation and used it to generate a house in-game with code.","description":"During my holiday break, I learned Minecraft Python and used the new skills to build a house in Minecraft by writing Python code.","link":"https://github.com/ezybear/Minecraft-Python/blob/main/house.py","repo":"https://github.com/ezybear/Minecraft-Python"},{"slug":"oken-stool","title":"Portfolio Site in Astro","client":"Personal","type":"Portfolio","stack":"Astro, TypeScript, Tailwind","year":2025,"summary":"A fast, content-driven portfolio that showcases selected work with a calm editorial tone.","description":"I built this portfolio as a lightweight, static-first experience that can be updated easily and scaled with future case studies.","link":"https://ezybear.github.io/","repo":"https://github.com/ezybear/ezybear.github.io"},{"slug":"arvid-chair","title":"Editorial UI for a Product Launch","client":"Northstar Studio","type":"Landing Experience","stack":"Astro, TypeScript, Tailwind","year":2024,"summary":"A calm, conversion-focused launch site with editorial storytelling.","description":"I designed and built a launch experience that balanced content storytelling with fast load times and clear conversion moments.","link":"https://example.com","repo":"https://github.com/ezybear/launch-site"},{"slug":"low-plinth-table","title":"SaaS Marketing Experience","client":"Brightside","type":"Marketing Site","stack":"Astro, Tailwind, GSAP","year":2022,"summary":"A marketing site crafted around product storytelling, motion, and clear conversion paths.","description":"I built a content-forward marketing experience that translated technical product value into a memorable, searchable, and conversion-friendly web presence.","link":"https://example.com","repo":"https://github.com/ezybear/brightside-marketing"},{"slug":"monolith-bench","title":"Internal Tooling for a Creative Team","client":"Studio North","type":"Product Tool","stack":"Vue, TypeScript, Supabase","year":2024,"summary":"A lightweight internal workspace to manage briefs, requests, and publishing tasks.","description":"I focused on reducing friction for a small creative team by building a fast, task-oriented product experience with thoughtful state handling and clear feedback loops.","link":"https://example.com","repo":"https://github.com/ezybear/internal-tooling"},{"slug":"halla-shelf","title":"Design System for a Fintech Dashboard","client":"Northstar Labs","type":"Design System","stack":"React, TypeScript, Storybook","year":2023,"summary":"A scalable component language for analytics, onboarding, and admin workflows.","description":"I helped shape a modular design system with reusable components, accessible states, and clear documentation for product teams shipping across multiple surfaces.","link":"https://example.com","repo":"https://github.com/ezybear/fintech-design-system"},{"slug":"tora-desk","title":"Product Storytelling for a Climate Brand","client":"Verdant","type":"Editorial Experience","stack":"Astro, Markdown, SEO","year":2023,"summary":"A polished editorial website that turned sustainability stories into a compelling digital narrative.","description":"I created a content-led experience that blended storytelling, product education, and search optimization for a mission-driven brand.","link":"https://example.com","repo":"https://github.com/ezybear/verdant-story"}]</script> <script>
+    const productList = JSON.parse(document.getElementById("cart-products").textContent);
+    const productsBySlug = new Map(productList.map((product) => [product.slug, product]));
+    const formatPrice = (value) =>
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+      }).format(value);
+
+    const title = document.querySelector("[data-cart-title]");
+    const empty = document.querySelector("[data-cart-empty]");
+    const filled = document.querySelector("[data-cart-filled]");
+    const list = document.querySelector("[data-cart-list]");
+    const form = document.querySelector("[data-checkout-form]");
+    const primary = document.querySelector("[data-cart-primary]");
+    const back = document.querySelector("[data-cart-back]");
+    const subtotalNode = document.querySelector("[data-cart-subtotal]");
+    const shippingNode = document.querySelector("[data-cart-shipping]");
+    const totalNode = document.querySelector("[data-cart-total]");
+    const stepCart = document.querySelector('[data-cart-step="cart"]');
+    const stepDetails = document.querySelector('[data-cart-step="details"]');
+    const cardNumber = document.querySelector("[data-card-number]");
+    const cardExpiry = document.querySelector("[data-card-expiry]");
+    const cardCvc = document.querySelector("[data-card-cvc]");
+    let step = "cart";
+
+    function digitsOnly(value, maxLength) {
+      return value.replace(/\D/g, "").slice(0, maxLength);
+    }
+
+    function formatCardNumber(value) {
+      return digitsOnly(value, 16).replace(/(.{4})/g, "$1 ").trim();
+    }
+
+    function formatExpiry(value) {
+      const digits = digitsOnly(value, 4);
+      if (digits.length <= 2) return digits;
+      return `${digits.slice(0, 2)} / ${digits.slice(2)}`;
+    }
+
+    function knownRows() {
+      return window.AtelierCart.read()
+        .map((item) => ({ item, product: productsBySlug.get(item.slug) }))
+        .filter((row) => row.product);
+    }
+
+    function render() {
+      const rows = knownRows();
+      const subtotal = rows.reduce((total, row) => total + row.product.year * row.item.quantity, 0);
+      const shipping = rows.length > 0 ? 120 : 0;
+      const total = subtotal + shipping;
+
+      if (rows.length === 0) step = "cart";
+
+      title.textContent = rows.length === 0 ? "Empty for now." : step === "cart" ? "Review your selection." : "A few details.";
+      empty.classList.toggle("hidden", rows.length !== 0);
+      filled.classList.toggle("hidden", rows.length === 0);
+      list.classList.toggle("hidden", step !== "cart");
+      form.classList.toggle("hidden", step !== "details");
+      primary.textContent = step === "cart" ? "Continue to details" : `Reserve · ${formatPrice(total)}`;
+      back.classList.toggle("hidden", step !== "details");
+      stepCart.className = step === "cart" ? "text-ink" : "text-faded";
+      stepDetails.className = step === "details" ? "text-ink" : "text-faded";
+
+      subtotalNode.textContent = formatPrice(subtotal);
+      shippingNode.textContent = formatPrice(shipping);
+      totalNode.textContent = formatPrice(total);
+
+      list.replaceChildren();
+      rows.forEach(({ item, product }) => {
+        const template = document.querySelector(`template[data-product-template="${item.slug}"]`);
+        const row = template.content.firstElementChild.cloneNode(true);
+        row.querySelector("[data-row-quantity]").textContent = String(item.quantity);
+        row.querySelector("[data-row-line-price]").textContent = formatPrice(product.year * item.quantity);
+        row.querySelector('[data-cart-action="decrease"]').addEventListener("click", () => window.AtelierCart.setQuantity(item.slug, item.quantity - 1));
+        row.querySelector('[data-cart-action="increase"]').addEventListener("click", () => window.AtelierCart.setQuantity(item.slug, item.quantity + 1));
+        row.querySelector('[data-cart-action="remove"]').addEventListener("click", () => window.AtelierCart.remove(item.slug));
+        list.appendChild(row);
+      });
+    }
+
+    primary.addEventListener("click", () => {
+      if (step === "cart") {
+        step = "details";
+        render();
+        return;
+      }
+      form.requestSubmit();
+    });
+
+    back.addEventListener("click", () => {
+      step = "cart";
+      render();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert("Checkout is a design preview — payment is not connected.");
+    });
+
+    cardNumber.addEventListener("input", () => {
+      cardNumber.value = formatCardNumber(cardNumber.value);
+    });
+
+    cardExpiry.addEventListener("input", () => {
+      cardExpiry.value = formatExpiry(cardExpiry.value);
+    });
+
+    cardCvc.addEventListener("input", () => {
+      cardCvc.value = digitsOnly(cardCvc.value, 3);
+    });
+
+    document.addEventListener("atelier-cart-change", render);
+    render();
+  </script>  </div> <footer id="contact" class="mt-32 border-t border-line py-24"> <div class="mx-auto grid max-w-screen-xl grid-cols-1 gap-12 px-6 md:grid-cols-3"> <div class="space-y-4"> <div class="font-serif text-lg italic tracking-tight">Ezybear</div> <p class="max-w-[30ch] text-sm leading-relaxed text-faded">Student developer sharing projects, ideas, and thoughtful web experiences.</p> </div> <div class="space-y-4"> <h2 class="text-xs font-medium uppercase tracking-widest">Explore</h2> <ul class="space-y-2 text-sm"> <li><a href="/projects" class="text-faded transition-colors hover:text-ink">Projects</a></li> <li><a href="/about" class="text-faded transition-colors hover:text-ink">About</a></li> </ul> </div> <div class="space-y-4"> <h2 class="text-xs font-medium uppercase tracking-widest">Connect</h2> <ul class="space-y-2 text-sm"> <li><a href="https://github.com/ezybear" target="_blank" rel="noopener noreferrer" class="text-faded transition-colors hover:text-ink">GitHub</a></li> </ul> </div> </div> <div class="mx-auto mt-16 max-w-screen-xl px-6 text-[10px] uppercase tracking-[0.2em] text-faded">
+© 2026 Ezybear — Built with Astro.
+</div> </footer> </body></html>

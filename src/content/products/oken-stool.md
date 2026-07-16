@@ -1,17 +1,18 @@
 ---
-name: Oken Stool
-collection: Collection 01 — Seating
-category: Seating
-material: Oak
-price: 320
-shortDescription: Solid White Oak
-dimensions: Ø 32 × H 45 cm
-finish: Matte Hard-Wax Oil
-leadTime: 4–6 Weeks
+title: Portfolio Site in Astro
+client: Personal
+type: Portfolio
+stack: Astro, TypeScript, Tailwind
+year: 2025
+summary: A fast, content-driven portfolio that showcases selected work with a calm editorial tone.
+description: I built this portfolio as a lightweight, static-first experience that can be updated easily and scaled with future case studies.
+link: https://ezybear.github.io/
+repo: https://github.com/ezybear/ezybear.github.io
 images:
   - ../../assets/p-oken-1.jpg
   - ../../assets/p-oken-2.jpg
 order: 1
+featured: false
 ---
 
-Designed by our lead craftsman, the Oken stool features traditional wedge-tenon joints that will remain stable for generations. Each piece is hand-finished with a natural wax oil to preserve the breathability of the wood.
+This project emphasizes simple navigation, strong typography, and a maintainable structure so that case studies can grow over time without adding visual noise.
