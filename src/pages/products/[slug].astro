@@ -1,6 +1,6 @@
 ---
 import ProjectDetailContent from "@/components/ProjectDetailContent.astro";
-import { getProjects, getRelated } from "@/data/products.js";
+import { getProjects, getRelated } from "@/data/projects.js";
 
 export async function getStaticPaths() {
   const projects = await getProjects();

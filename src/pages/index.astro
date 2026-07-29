@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import ProjectCard from "@/components/ProductCard.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import heroImg from "@/assets/minecraft-house-preview.png";
-import { getProjects } from "@/data/products.js";
+import { getProjects } from "@/data/projects.js";
 
 const projects = await getProjects();
 const featured = projects.filter((project) => project.featured).slice(0, 3);

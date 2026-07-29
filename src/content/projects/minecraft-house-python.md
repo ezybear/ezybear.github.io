@@ -3,7 +3,7 @@ title: Building a House in Minecraft with Python
 client: Personal
 type: Python Project
 stack: Python, Minecraft
-year: 2025
+year: 2026
 summary: I learned Minecraft Python over vacation and used it to generate a house in-game with code.
 description: During my holiday break, I learned Minecraft Python and used the new skills to build a house in Minecraft by writing Python code.
 link: https://github.com/ezybear/Minecraft-Python/blob/main/house.py
